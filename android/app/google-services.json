@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "414539135840",
+    "project_id": "explorergo-5780d",
+    "storage_bucket": "explorergo-5780d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414539135840:android:323d81a3837fdf1c3c3c05",
+        "android_client_info": {
+          "package_name": "com.example.explorergocustomer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414539135840-panfqdb7vi0137ms9ktllpdtat9fa9id.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.explorergocustomer",
+            "certificate_hash": "8f2820ea13f9eb8cfd78882a30de4e1cd22d7687"
+          }
+        },
+        {
+          "client_id": "414539135840-2r54007050vnb09jn8i09h52bbl5g6l4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQTP36jqkyHNOsmKCg_vpSDebYVPLmDdg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414539135840-2r54007050vnb09jn8i09h52bbl5g6l4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
