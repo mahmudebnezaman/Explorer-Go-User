@@ -25,6 +25,7 @@ class _SignUpState extends State<SignUp> {
 
   bool? isCheck = false;
   bool? isValid = false;
+
   var controller = Get.put(AuthController());
 
   //text controllers
@@ -65,7 +66,7 @@ class _SignUpState extends State<SignUp> {
           );
           }).then((value) {
             VxToast.show(context, msg: signedup);
-              Get.to(()=> const EmailVarificationScreen());
+              Get.to(()=> EmailVarificationScreen(emailaddress: emailController.text,));
          });
       } catch(e){
         controller.isloading(false);

@@ -1,4 +1,5 @@
 import 'package:explorergocustomer/consts/consts.dart';
+import 'package:explorergocustomer/controllers/auth_controller.dart';
 import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -13,6 +14,8 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+
+var authcontroller = Get.put(AuthController());
 
 changeScreen(){
     Future.delayed(const Duration(seconds: 2),(){

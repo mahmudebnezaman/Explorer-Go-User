@@ -6,6 +6,10 @@ import 'package:explorergocustomer/views/home_screen/home.dart';
 import 'package:path/path.dart';
 
 class MailVarificationController extends GetxController {
+
+  var isloading = false.obs;
+
+  AuthController authController = Get.find<AuthController>();
   // late Timer _timer;
 
   @override
@@ -37,10 +41,15 @@ class MailVarificationController extends GetxController {
   void manualRedirect(context){
     auth.currentUser?.reload();
     final user = auth.currentUser;
+    isloading = false.obs;
     if (user!.emailVerified){
       VxToast.show(context, msg: "Email is varified now");
       Get.offAll(()=>const Home());
     }
+  }
+
+  removeUser(docId) async{
+    await firestore.collection(usersCollection).doc(docId).delete();
   }
 
 }

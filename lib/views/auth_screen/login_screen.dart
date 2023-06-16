@@ -153,27 +153,6 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             10.heightBox,
-            // Row(
-            //   mainAxisAlignment: MainAxisAlignment.center,
-            //   children:
-            //   List.generate(3, (index) => Padding(
-            //   padding: const EdgeInsets.all(8.0),
-            //   child: CircleAvatar(
-            //     backgroundColor: whiteColor,
-            //     radius: 30,
-            //       child: Image.asset(socialIconList[index], width: 50,).onTap(() async {
-            //         // controller.signInWithGoogle(context);
-            //         switch (index) {
-            //           case 0:
-            //             // controller.isloading(true);
-            //             
-            //             break;
-            //           default:
-            //         }
-            //       }),
-            //     ),
-            //   ),),
-            // )
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
