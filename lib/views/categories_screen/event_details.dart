@@ -3,6 +3,7 @@
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/consts/lists.dart';
 import 'package:explorergocustomer/controllers/product_controller.dart';
+import 'package:explorergocustomer/views/home_screen/home.dart';
 import 'package:explorergocustomer/widgets_common/custom_textfeild.dart';
 import 'package:explorergocustomer/widgets_common/my_button.dart';
 import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
@@ -326,6 +327,7 @@ class _EventDetailsState extends State<EventDetails> {
 
       if (result.status!.toLowerCase() == "failed") {
         controller.confirmOrderController(widget.data['e_title']);
+        Get.offAll(()=>const Home());
         VxToast.show(
           context,
           showTime: 5000,
