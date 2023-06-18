@@ -27,6 +27,7 @@ class AuthController extends GetxController {
     } on FirebaseAuthException {
       VxToast.show(context, msg: "Please use valid email & password!");
     }
+    isloading(false);
     return userCredential;
   }
 
@@ -53,6 +54,8 @@ class AuthController extends GetxController {
       'email': email,
       'imageUrl': '',
       'id': auth.currentUser!.uid,
+      'emergency_contact': '',
+      'emergency_contact_name': ''
     });
   }
 
@@ -105,6 +108,8 @@ class AuthController extends GetxController {
       // 'cart_count': '00',
       'wishlist_count': '00',
       'order_count': '00',
+      'emergency_contact': '',
+      'emergency_contact_name': ''
     });
   }
 }

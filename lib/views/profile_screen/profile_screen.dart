@@ -5,13 +5,16 @@ import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/consts/loading_indicator.dart';
 import 'package:explorergocustomer/controllers/auth_controller.dart';
 import 'package:explorergocustomer/controllers/profile_controller.dart';
+import 'package:explorergocustomer/views/profile_screen/add_emergency_contact.dart';
 import 'package:explorergocustomer/views/profile_screen/change_password.dart';
 import 'package:explorergocustomer/views/profile_screen/edit_profile.dart';
 
-// import 'package:explorergocustomer/consts/lists.dart';
 import 'package:explorergocustomer/widgets_common/my_button.dart';
 import 'package:explorergocustomer/services/firestore_services.dart';
 import 'package:explorergocustomer/views/auth_screen/login_screen.dart';
+import 'package:explorergocustomer/widgets_common/privacy.dart';
+import 'package:explorergocustomer/widgets_common/refund.dart';
+import 'package:explorergocustomer/widgets_common/terms.dart';
 
 
 class ProfileScreen extends StatefulWidget {
@@ -86,7 +89,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     "Emergency Contact".text.color(fontGrey).size(16).fontFamily(regular).make(),
                     Image.asset(icRight, height: 18, color: lightGrey,)
                   ],
-                ),
+                ).onTap(() {Get.to(()=> EmergencyContact(data: data));}),
                 2.heightBox,
                 if(data['password'] != '') Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -104,7 +107,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     "Terms & Conditions".text.color(fontGrey).size(16).fontFamily(regular).make(),
                     Image.asset(icRight, height: 18, color: lightGrey,)
                   ],
-                ),
+                ).onTap(() {Get.to(()=> const TermsScreen());}),
                 2.heightBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +115,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     "Privacy Policy".text.color(fontGrey).size(16).fontFamily(regular).make(),
                     Image.asset(icRight, height: 18, color: lightGrey,)
                   ],
-                ),
+                ).onTap(() {Get.to(()=> const PrivacyScreen());}),
                 2.heightBox,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -120,7 +123,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     "Refund & Cancellation".text.color(fontGrey).size(16).fontFamily(regular).make(),
                     Image.asset(icRight, height: 18, color: lightGrey,)
                   ],
-                ),
+                ).onTap(() {Get.to(()=> const RefundScreen());}),
                 const Spacer(),
                 myButton(
                   buttonSize: 20.0,

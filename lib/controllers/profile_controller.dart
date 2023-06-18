@@ -22,6 +22,8 @@ class ProfileController extends GetxController {
   var passController = TextEditingController();
   var newpassController = TextEditingController();
 
+  var emergencycontactController = TextEditingController();
+  var emergencycontactNameController = TextEditingController();
  
   changeImage(context) async{
     try {
@@ -67,7 +69,16 @@ class ProfileController extends GetxController {
     isloading(false);
   }
 
-    void reset() {
+  updateEmergencyContact({required contact, required name}) async {
+    var store = firestore.collection(usersCollection).doc(auth.currentUser!.uid);
+    await store.set({
+      'emergency_contact': contact,
+      'emergency_contact_name': name
+    },SetOptions(merge: true));
+    isloading(false);
+  }
+
+  void reset() {
     profileImagePath.value = '';
     profileImageLink = '';
     isloading.value = false;

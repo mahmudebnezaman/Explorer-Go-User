@@ -1,7 +1,10 @@
 import 'package:explorergocustomer/consts/consts.dart';
+import 'package:explorergocustomer/widgets_common/terms.dart';
+import 'package:flutter/gestures.dart';
 import 'package:explorergocustomer/consts/loading_indicator.dart';
 import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
 import 'package:explorergocustomer/controllers/auth_controller.dart';
+import 'package:explorergocustomer/widgets_common/privacy.dart';
 
 import '../../widgets_common/custom_passwordfeild.dart';
 import '../../widgets_common/custom_textfeild.dart';
@@ -23,7 +26,7 @@ class _SignUpState extends State<SignUp> {
   var nameIcon = const Icon(Icons.account_circle_outlined, size: 25,);
   var emailIcon = const Icon(Icons.email_outlined, size: 25,);
 
-  bool? isCheck = false;
+  bool? isCheck = true;
   bool? isValid = false;
 
   var controller = Get.put(AuthController());
@@ -66,7 +69,8 @@ class _SignUpState extends State<SignUp> {
           );
           }).then((value) {
             VxToast.show(context, msg: signedup);
-              Get.to(()=> EmailVarificationScreen(emailaddress: emailController.text,));
+            controller.isloading(false);
+            Get.to(()=> EmailVarificationScreen(emailaddress: emailController.text,));
          });
       } catch(e){
         controller.isloading(false);
@@ -158,38 +162,53 @@ class _SignUpState extends State<SignUp> {
                                 isCheck = newValue;
                               });
                           }),
-                          10.widthBox,
+                          5.widthBox,
                           Expanded(
-                            child: RichText(text: const TextSpan(
-                              children: [
-                                TextSpan(
-                                  text: "I agree to the ", style: TextStyle(
-                                    fontFamily: regular,
-                                    color:fontGrey
+                            child: RichText(
+                              text: TextSpan(
+                                children: [
+                                  const TextSpan(
+                                    text: "I agree to the ",
+                                    style: TextStyle(
+                                      fontFamily: 'regular',
+                                      color: Colors.grey,
+                                    ),
                                   ),
-                                ),
-                                TextSpan(
-                                  text: privacyPolicy, style: TextStyle(
-                                    fontFamily: regular,
-                                    color: primary,
+                                  TextSpan(
+                                    text: 'Privacy Policy',
+                                    style: const TextStyle(
+                                      fontFamily: 'regular',
+                                      color: Colors.blue,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Get.to(()=> const PrivacyScreen());
+                                      },
                                   ),
-                                ),
-                                TextSpan(
-                                  text: " & ", style: TextStyle(
-                                    fontFamily: regular,
-                                    color:fontGrey
-                                 ),
-                                ),
-                                TextSpan(
-                                  text: termsAndCondition, style: TextStyle(
-                                    fontFamily: regular,
-                                    color: primary,
+                                  const TextSpan(
+                                    text: " & ",
+                                    style: TextStyle(
+                                      fontFamily: 'regular',
+                                      color: Colors.grey,
+                                    ),
                                   ),
-                                )
-                            ]
-                            )),
+                                  TextSpan(
+                                    text: 'Terms and Conditions',
+                                    style: const TextStyle(
+                                      fontFamily: 'regular',
+                                      color: Colors.blue,
+                                    ),
+                                    recognizer: TapGestureRecognizer()
+                                      ..onTap = () {
+                                        Get.to(()=> const TermsScreen());
+                                      },
+                                  ),
+                                ],
+                              ),
+                            ),
                           )
-                          ],
+
+                        ],
                       ),
                       5.heightBox,
                       controller.isloading.value ? loadingIndicator() : myButton(
