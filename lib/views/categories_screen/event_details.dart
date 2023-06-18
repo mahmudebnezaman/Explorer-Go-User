@@ -1,10 +1,18 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/consts/lists.dart';
 import 'package:explorergocustomer/controllers/product_controller.dart';
-import 'package:explorergocustomer/views/categories_screen/payment_gateway/paywithbkash.dart';
 import 'package:explorergocustomer/widgets_common/custom_textfeild.dart';
 import 'package:explorergocustomer/widgets_common/my_button.dart';
+import 'package:flutter_sslcommerz/model/SSLCSdkType.dart';
+import 'package:flutter_sslcommerz/model/SSLCTransactionInfoModel.dart';
+import 'package:flutter_sslcommerz/model/SSLCommerzInitialization.dart';
+import 'package:flutter_sslcommerz/model/SSLCurrencyType.dart';
+import 'package:flutter_sslcommerz/sslcommerz.dart';
 
+// ignore: constant_identifier_names
+enum SdkType { LIVE }
 class EventDetails extends StatefulWidget {
   
   final String? title;
@@ -21,31 +29,31 @@ class EventDetails extends StatefulWidget {
 
   var controller = Get.put(ProductController());
 
+class _EventDetailsState extends State<EventDetails> {
+
   void vaildation(context, dataId) async {
     if (controller.bookingEmailController.text.isEmpty && controller.bookingNameController.text.isEmpty && controller.bookingNumberController.text.isEmpty) {
       VxToast.show(context, msg: "Please fill up all the feilds");
     } else {
       if (controller.bookingEmailController.text.isEmpty) {
-      VxToast.show(context, msg: "Email feild is Empty");
-    } else if (controller.bookingNameController.text.isEmpty) {
-      VxToast.show(context, msg: "Name feild is Empty");
-    } else if (controller.bookingNumberController.text.isEmpty) {
-      VxToast.show(context, msg: "Number feild is Empty");
-    } else if (!regExp.hasMatch(controller.bookingEmailController.text)) {
-      VxToast.show(context, msg: "Please Try Vaild Email ");
-    } else if (controller.bookingNumberController.text.length < 11) {
-      VxToast.show(context, msg: "Please Try Vaild Number");
-    } else if (controller.bookingNumberController.text.length > 11) {
-      VxToast.show(context, msg: "Please Try Vaild Number");
-    } else if (controller.quantity < 1) {
-      VxToast.show(context, msg: "Minimum number of traveler is 1");
-    }else {
-      Get.to(()=> PayWithBkash(dataId: dataId,));
-    }
+        VxToast.show(context, msg: "Email feild is Empty");
+      } else if (controller.bookingNameController.text.isEmpty) {
+        VxToast.show(context, msg: "Name feild is Empty");
+      } else if (controller.bookingNumberController.text.isEmpty) {
+        VxToast.show(context, msg: "Number feild is Empty");
+      } else if (!regExp.hasMatch(controller.bookingEmailController.text)) {
+        VxToast.show(context, msg: "Please Try Vaild Email ");
+      } else if (controller.bookingNumberController.text.length < 11) {
+        VxToast.show(context, msg: "Please Try Vaild Number");
+      } else if (controller.bookingNumberController.text.length > 11) {
+        VxToast.show(context, msg: "Please Try Vaild Number");
+      } else if (controller.quantity < 1) {
+        VxToast.show(context, msg: "Minimum number of traveler is 1");
+      }else {
+        sslCommerzGeneralCall();
+      }
     }
   }
-
-class _EventDetailsState extends State<EventDetails> {
 
   final ScrollController _scrollController = ScrollController();
   bool showFloatingButton = true; // Added variable to control visibility of floating action button
@@ -296,5 +304,46 @@ class _EventDetailsState extends State<EventDetails> {
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
+  }
+
+    Future<void> sslCommerzGeneralCall() async {
+    Sslcommerz sslcommerz = Sslcommerz(
+      initializer: SSLCommerzInitialization(
+        //Use the ipn if you have valid one, or it will fail the transaction.
+        ipn_url: "www.ipnurl.com",
+        multi_card_name: "",
+        currency: SSLCurrencyType.BDT,
+        product_category: "Food",
+        sdkType: SSLCSdkType.LIVE,
+        store_id: "demotest",
+        store_passwd: "qwerty",
+        total_amount: controller.totalPrice.toDouble(),
+        tran_id: DateTime.now().toString(),
+      ),
+    );
+    try {
+      SSLCTransactionInfoModel result = await sslcommerz.payNow();
+
+      if (result.status!.toLowerCase() == "failed") {
+        controller.confirmOrderController(widget.data['e_title']);
+        VxToast.show(
+          context,
+          showTime: 5000,
+          msg: "Booking Reserved!"
+        );
+      } else if (result.status!.toLowerCase() == "closed") {
+        VxToast.show(
+          context,
+          msg: "Payment Failed",
+        );
+      } else {
+        VxToast.show(
+          context,
+            msg:"Transaction is ${result.status} and Amount is ${result.amount}"
+        );
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
   }
 }
