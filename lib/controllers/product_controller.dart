@@ -6,6 +6,7 @@ class ProductController extends GetxController {
   var quantity = 0.obs;
   var totalPrice = 0.obs;
 
+  var isloading = false.obs;
 
   var isFave = false.obs;
   var searchController = TextEditingController();
@@ -13,6 +14,8 @@ class ProductController extends GetxController {
   var bookingNameController = TextEditingController();
   var bookingEmailController = TextEditingController();
   var bookingNumberController = TextEditingController();
+  var bookinglocationController = TextEditingController();
+  var bookingdateController = TextEditingController();
 
   increseQuantity(totalQuantity){
     if (quantity.value < totalQuantity) {
@@ -33,6 +36,8 @@ class ProductController extends GetxController {
     bookingEmailController.clear();
     bookingNameController.clear();
     bookingNumberController.clear();
+    bookinglocationController.clear();
+    bookingdateController.clear();
   } 
 
   addToWishlist(docId, context) async {
@@ -60,18 +65,21 @@ class ProductController extends GetxController {
     }
   }
 
-  confirmOrderController(var tripnameId) async {
+  confirmOrderController(var tripnameId, var date) async {
     await firestore.collection(bookingsCollection).doc().set(
       {
         'trip_name': tripnameId,
         'traveler_name': bookingNameController.text,
         'traveler_email': bookingEmailController.text,
         'traveler_mobile': bookingNumberController.text,
+        'e_date': date,
         'traveler_count': quantity.value,
         'total_price': totalPrice.value,
         'traveler_id': auth.currentUser!.uid,
         'status': "pending"
       }
     );
+    isloading(false);
+    resetValues();
   }
 }

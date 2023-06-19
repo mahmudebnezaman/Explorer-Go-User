@@ -326,13 +326,9 @@ class _EventDetailsState extends State<EventDetails> {
       SSLCTransactionInfoModel result = await sslcommerz.payNow();
 
       if (result.status!.toLowerCase() == "failed") {
-        controller.confirmOrderController(widget.data['e_title']);
+        controller.confirmOrderController(widget.data['e_title'], widget.data['e_date']);
         Get.offAll(()=>const Home());
-        VxToast.show(
-          context,
-          showTime: 5000,
-          msg: "Booking Reserved!"
-        );
+        VxToast.show(context, showTime: 5000, msg: "Booking Reserved!");
       } else if (result.status!.toLowerCase() == "closed") {
         VxToast.show(
           context,
