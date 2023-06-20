@@ -62,4 +62,15 @@ class FireStoreServices{
   static searchProducts(title){
     return firestore.collection(eventsCollection).get();
   }
+    static getBookings(category){
+    if(category == "Upcoming"){
+      return firestore.collection(bookingsCollection).where('traveler_id', isEqualTo: auth.currentUser!.uid).where('status', whereIn: ["Active" , "Pending"]).snapshots();
+    } else if (category == "Upcoming"){
+      return firestore.collection(bookingsCollection).where('traveler_id', isEqualTo: auth.currentUser!.uid).where('status', isEqualTo: "Active").snapshots();
+    } else if (category == "Previous"){
+      return firestore.collection(bookingsCollection).where('traveler_id', isEqualTo: auth.currentUser!.uid).where('status', isEqualTo: "Previous").snapshots();
+    } else if (category == "Cancelled"){
+      return firestore.collection(bookingsCollection).where('traveler_id', isEqualTo: auth.currentUser!.uid).where('status', isEqualTo: "Cancelled").snapshots();
+    }
+  }
 }

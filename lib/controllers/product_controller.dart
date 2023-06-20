@@ -65,7 +65,7 @@ class ProductController extends GetxController {
     }
   }
 
-  confirmOrderController(var tripnameId, var date) async {
+  confirmOrderController(var tripnameId, var date, var img, var location, var pickup, var itinerary) async {
     await firestore.collection(bookingsCollection).doc().set(
       {
         'trip_name': tripnameId,
@@ -76,7 +76,11 @@ class ProductController extends GetxController {
         'traveler_count': quantity.value,
         'total_price': totalPrice.value,
         'traveler_id': auth.currentUser!.uid,
-        'status': "pending"
+        'status': "Pending",
+        'img_url': img,
+        'location': location,
+        'Pickup Note': pickup,
+        'Itinerary': itinerary,
       }
     );
     isloading(false);

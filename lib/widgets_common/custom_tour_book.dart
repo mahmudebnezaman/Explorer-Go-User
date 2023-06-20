@@ -47,7 +47,7 @@ class _CustomTourBookState extends State<CustomTourBook> {
       } else if (controller.quantity < 1) {
         VxToast.show(context, msg: "Minimum number of traveler is 1");
       }else {
-        controller.confirmOrderController(controller.bookinglocationController.text, controller.bookingdateController.text);
+        controller.confirmOrderController(controller.bookinglocationController.text, controller.bookingdateController.text,'','Will be updated after tour confirmation.','Will be updated after tour confirmation.','Will be updated after tour confirmation.');
         Get.offAll(()=>const Home());
         VxToast.show(context, showTime: 5000, msg: "Booking Reserved!");
       }

@@ -1,6 +1,7 @@
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/controllers/home_controller.dart';
 import 'package:explorergocustomer/views/blog_screen/blog_screen.dart';
+import 'package:explorergocustomer/views/booking_screen/booking_screen.dart';
 
 // import 'package:explorergocustomer/controllers/home_controller.dart';
 
@@ -39,7 +40,7 @@ class _HomeState extends State<Home> {
       const HomeScreen(),
       const BlogScreen(),
       const SavedScreen(),
-      const ProfileScreen(),
+      const BookingScreen(),
       const ProfileScreen(),
     ]; 
 

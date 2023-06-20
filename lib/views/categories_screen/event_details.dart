@@ -181,11 +181,11 @@ class _EventDetailsState extends State<EventDetails> {
                 ListView.builder(
                   physics: const NeverScrollableScrollPhysics(),
                   shrinkWrap: true,
-                  itemCount: eventIconList.length,
+                  itemCount: eventTitleImage.length,
                   itemBuilder: (BuildContext context, int index){
                     var txt = eventTitleList[index];
                     return ListTile(
-                      leading: Image.asset(eventIconList[index], color: highEmphasis, height: 24,),
+                      leading: Image.asset(eventTitleImage[index], color: highEmphasis, height: 24,),
                       title: txt.text.fontFamily(semibold).size(18).color(highEmphasis).make(),
                       trailing: const Icon(Icons.arrow_drop_down),
                     ).box.roundedSM.margin(const EdgeInsets.symmetric(vertical: 4)).white.shadowSm.make().onTap(() {
@@ -326,7 +326,7 @@ class _EventDetailsState extends State<EventDetails> {
       SSLCTransactionInfoModel result = await sslcommerz.payNow();
 
       if (result.status!.toLowerCase() == "failed") {
-        controller.confirmOrderController(widget.data['e_title'], widget.data['e_date']);
+        controller.confirmOrderController(widget.data['e_title'], widget.data['e_date'], widget.data['e_images'][0], widget.data['e_location'], widget.data['Pickup Note'], widget.data['Itinerary']);
         Get.offAll(()=>const Home());
         VxToast.show(context, showTime: 5000, msg: "Booking Reserved!");
       } else if (result.status!.toLowerCase() == "closed") {

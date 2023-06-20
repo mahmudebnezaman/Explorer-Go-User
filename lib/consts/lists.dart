@@ -17,9 +17,10 @@ const homeButtonIcon = [icDeparture, icBed, icCustomerJourney];
 
 const categoriesTitles = [allCat, beach, mountain, camping, adventure, history, relax];
 const eventTitles = [recomended,popular,allEvent];
+const bookingStatus = ["Previous","Upcoming","Cancelled"];
 
 const blogCategoriesTitles = ['All','Destinations','Discover Bangladesh', 'Travel Inspiration', 'Stories', 'Tips'];
 
 //event details
-const eventIconList = [icDescription, icRout, icClock, icItinerary, icClipboard, icInformation, icInfo, icIdea, icOrder, icFile];
+const eventTitleImage = [icDescription, icRout, icClock, icItinerary, icClipboard, icInformation, icInfo, icIdea, icOrder, icFile];
 const eventTitleList = ['Overview', 'Pickup Note', 'Timing', 'Itinerary', 'Inclusion & Exclusion', 'Description', 'Additional Information', 'Travel Tips', 'Options', 'Policy'];
