@@ -49,6 +49,7 @@ dependencies:
   flutter_lints: ^2.0.1
   intl: ^0.17.0
   flutter_sslcommerz: ^2.2.2-nullsafety.0
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:

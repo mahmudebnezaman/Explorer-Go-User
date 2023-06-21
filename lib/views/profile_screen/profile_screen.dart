@@ -1,20 +1,25 @@
 // ignore_for_file: library_private_types_in_public_api
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:explorergocustomer/services/firestore_services.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/consts/loading_indicator.dart';
-import 'package:explorergocustomer/controllers/auth_controller.dart';
-import 'package:explorergocustomer/controllers/profile_controller.dart';
-import 'package:explorergocustomer/views/profile_screen/add_emergency_contact.dart';
-import 'package:explorergocustomer/views/profile_screen/change_password.dart';
-import 'package:explorergocustomer/views/profile_screen/edit_profile.dart';
 
-import 'package:explorergocustomer/widgets_common/my_button.dart';
-import 'package:explorergocustomer/services/firestore_services.dart';
-import 'package:explorergocustomer/views/auth_screen/login_screen.dart';
 import 'package:explorergocustomer/widgets_common/privacy.dart';
 import 'package:explorergocustomer/widgets_common/refund.dart';
 import 'package:explorergocustomer/widgets_common/terms.dart';
+import 'package:explorergocustomer/widgets_common/my_button.dart';
+
+import 'package:explorergocustomer/controllers/auth_controller.dart';
+import 'package:explorergocustomer/controllers/profile_controller.dart';
+
+import 'package:explorergocustomer/views/profile_screen/add_emergency_contact.dart';
+import 'package:explorergocustomer/views/profile_screen/change_password.dart';
+import 'package:explorergocustomer/views/profile_screen/edit_profile.dart';
+import 'package:explorergocustomer/views/auth_screen/login_screen.dart';
+
 
 
 class ProfileScreen extends StatefulWidget {
@@ -72,15 +77,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   ),
                 ),
                 10.heightBox,
-                const Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    "Inbox".text.color(highEmphasis).size(18).fontFamily(bold).make(),
-                    Image.asset(icRight, height: 18, color: lightGrey,)
-                  ],
-                ),
-                const Divider(),
                 "Personal Details".text.color(highEmphasis).size(18).fontFamily(bold).make(),
                 5.heightBox,
                 Row(
@@ -124,6 +120,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     Image.asset(icRight, height: 18, color: lightGrey,)
                   ],
                 ).onTap(() {Get.to(()=> const RefundScreen());}),
+                const Divider(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    "Contact Us".text.color(highEmphasis).size(18).fontFamily(bold).make(),
+                    Image.asset(icRight, height: 18, color: lightGrey,)
+                  ],
+                ).onTap(() {
+                  _launchEmail(data['name']);
+                }),
                 const Spacer(),
                 myButton(
                   buttonSize: 20.0,
@@ -143,4 +149,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
       ),
     );
   }
+
+  void _launchEmail(name) async {
+    String email = Uri.encodeComponent("explorergo.care@gmail.com");
+    String subject = Uri.encodeComponent("For Customer Service");
+    String body = Uri.encodeComponent("Hi!\n\nwrite your msg here...\n\nName: $name\nEmail: ${auth.currentUser!.email}");
+    Uri mail = Uri.parse("mailto:$email?subject=$subject&body=$body");
+
+
+    if (await canLaunchUrl(mail)) {
+      await launchUrl(mail);
+    } else {
+      throw 'Could not launch $mail';
+    }
+  }
+
 }
