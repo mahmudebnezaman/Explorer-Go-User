@@ -67,7 +67,9 @@ class _CustomTourBookState extends State<CustomTourBook> {
 
   @override
   Widget build(BuildContext context) {
-    controller.bookingNameController.text = auth.currentUser!.displayName!;
+    if (auth.currentUser!.displayName != null) {
+      controller.bookingNameController.text = auth.currentUser!.displayName!;
+    }
     controller.bookingEmailController.text = auth.currentUser!.email!;
 
     return WillPopScope(

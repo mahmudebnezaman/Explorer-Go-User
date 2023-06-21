@@ -57,7 +57,7 @@ Widget eventGridviewBuilder (data, controller){
           ],
         ).box.white.roundedSM.padding(const EdgeInsets.all(12)).margin(const EdgeInsets.symmetric(horizontal: 4)).outerShadow.make().onTap(() {
           controller.checkIfFav(data[index]);
-          Get.to(()=> EventDetails(title: '${data[index]['e_title']}', data: data[index]));
+          Get.to(()=> EventDetails(data: data[index]));
         })
       );
     },

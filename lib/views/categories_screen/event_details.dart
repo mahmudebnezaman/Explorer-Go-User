@@ -16,9 +16,8 @@ import 'package:flutter_sslcommerz/sslcommerz.dart';
 enum SdkType { LIVE }
 class EventDetails extends StatefulWidget {
   
-  final String? title;
   final dynamic data;
-  const EventDetails({super.key, this.title, this.data});
+  const EventDetails({super.key, this.data});
 
   @override
   State<EventDetails> createState() => _EventDetailsState();
@@ -88,7 +87,9 @@ class _EventDetailsState extends State<EventDetails> {
 
   @override
   Widget build(BuildContext context) {
-    controller.bookingNameController.text = auth.currentUser!.displayName!;
+    if (auth.currentUser!.displayName != null) {
+      controller.bookingNameController.text = auth.currentUser!.displayName!;
+    }
     controller.bookingEmailController.text = auth.currentUser!.email!;
 
     return WillPopScope(
@@ -99,7 +100,7 @@ class _EventDetailsState extends State<EventDetails> {
       child: Scaffold(
         // resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: widget.title!.text.fontFamily(bold).color(highEmphasis).make(),
+          title: widget.data['e_title'].toString().text.make(),
           actions: [
             Obx(
               ()=> controller.isFave.value ? const Icon(Icons.favorite, color: redColor, size: 30,).box.margin(const EdgeInsets.only( right: 12)).make().onTap(() {

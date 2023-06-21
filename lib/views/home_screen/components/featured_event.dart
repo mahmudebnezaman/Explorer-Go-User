@@ -32,7 +32,7 @@ Widget getFeaturedEvents(stream){
               return Image.network(data[index]['e_images'][0], height: 216, width: 384,
               fit: BoxFit.cover,
               ).box.rounded.outerShadow.clip(Clip.antiAlias).margin(const EdgeInsets.all(2)).make().onTap(() {
-                Get.to(()=>EventDetails(data: data[index],title: data[index]['e_title'],));
+                Get.to(()=>EventDetails(data: data[index]));
               });
             });
       }
