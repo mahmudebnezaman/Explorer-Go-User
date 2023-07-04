@@ -21,6 +21,8 @@ const bookingStatus = ["Previous","Upcoming","Cancelled"];
 
 const blogCategoriesTitles = ['All','Destinations','Discover Bangladesh', 'Travel Inspiration', 'Stories', 'Tips'];
 
+const popMenuTitles = ["Add Featured", "Edit", "Delete"];
+
 //event details
 const eventTitleImage = [icDescription, icRout, icClock, icItinerary, icClipboard, icInformation, icInfo, icIdea, icOrder, icFile];
 const eventTitleList = ['Overview', 'Pickup Note', 'Timing', 'Itinerary', 'Inclusion & Exclusion', 'Description', 'Additional Information', 'Travel Tips', 'Options', 'Policy'];

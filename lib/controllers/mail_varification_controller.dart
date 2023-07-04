@@ -6,50 +6,57 @@ import 'package:explorergocustomer/views/home_screen/home.dart';
 import 'package:path/path.dart';
 
 class MailVarificationController extends GetxController {
-
   var isloading = false.obs;
-
   AuthController authController = Get.find<AuthController>();
-  // late Timer _timer;
+  late Timer _timer;
 
   @override
-  void onInit(){
+  void onInit() {
     super.onInit();
     sendVerificationEmail();
     setTimerForAutoRedirect(context);
   }
 
-  //Send or Resend Email Verification
+  // Send or Resend Email Verification
   Future<void> sendVerificationEmail() async {
-    await AuthController.instance.sendEmailVarification(context);
+    await authController.sendEmailVarification(context);
   }
 
-  //set timer to check if verification is done and redirect
-  void setTimerForAutoRedirect(context){
-    Timer.periodic(const Duration(seconds: 3), (timer) {
-      auth.currentUser?.reload();
+  // Set timer to check if verification is done and redirect
+  void setTimerForAutoRedirect(context) {
+    _timer = Timer.periodic(const Duration(seconds: 3), (timer) {
       final user = auth.currentUser;
-      if (user!.emailVerified){
-        timer.cancel();
-        VxToast.show(context, msg: "Email is varified now");
-        Get.offAll(()=>const Home());
+      if (user != null) {
+        user.reload();
+        if (user.emailVerified) {
+          timer.cancel();
+          VxToast.show(context, msg: "Email is verified now");
+          Get.offAll(() => const Home());
+        }
       }
     });
   }
 
-  //set timer to check if verification is done and redirect
-  void manualRedirect(context){
-    auth.currentUser?.reload();
+  // Manually check if verification is done and redirect
+  void manualRedirect(context) {
     final user = auth.currentUser;
-    isloading = false.obs;
-    if (user!.emailVerified){
-      VxToast.show(context, msg: "Email is varified now");
-      Get.offAll(()=>const Home());
+    if (user != null) {
+      user.reload();
+      if (user.emailVerified) {
+        VxToast.show(context, msg: "Email is verified now");
+        Get.offAll(() => const Home());
+      }
     }
   }
 
-  removeUser(docId) async{
-    await firestore.collection(usersCollection).doc(docId).delete();
+  // Cancel the timer when the controller is disposed
+  @override
+  void onClose() {
+    _timer.cancel();
+    super.onClose();
   }
 
+  removeUser(String? docId) async {
+    await firestore.collection(usersCollection).doc(docId).delete();
+  }
 }

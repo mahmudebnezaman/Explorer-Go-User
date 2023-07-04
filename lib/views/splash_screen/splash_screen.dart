@@ -1,5 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/controllers/auth_controller.dart';
+import 'package:explorergocustomer/views/admin_home_screen/admin_home.dart';
 import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -17,20 +19,34 @@ class _SplashScreenState extends State<SplashScreen> {
 
 var authcontroller = Get.put(AuthController());
 
-changeScreen(){
-    Future.delayed(const Duration(seconds: 2),(){
-      auth.authStateChanges().listen((User? user) {
-        if (user == null && mounted){
-          Get.offAll (()=>const LoginScreen());
-        } else if (user!.emailVerified){
-          Get.offAll(()=>const Home());
-        }
-         else {
-          Get.offAll(()=>const EmailVarificationScreen());
+void changeScreen() {
+  auth.authStateChanges().listen((User? user) {
+    if (user == null && mounted) {
+      Get.offAll(() => const LoginScreen());
+    } else if (user != null) {
+      user.reload().then((_) {
+        if (user.emailVerified) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(auth.currentUser!.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              final userRole = documentSnapshot.get('role') as String;
+              if (userRole == 'admin') {
+                Get.offAll(() => const AdminHome());
+              } else if (userRole == 'user') {
+                Get.offAll(() => const Home());
+              }
+            }
+          });
+        } else {
+          Get.offAll(() => const EmailVarificationScreen());
         }
       });
-    });
-  }
+    }
+  });
+}
 
   @override
   void initState(){

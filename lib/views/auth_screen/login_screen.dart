@@ -1,10 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:explorergocustomer/consts/consts.dart';
-
 import 'package:explorergocustomer/consts/loading_indicator.dart';
 
 import 'package:explorergocustomer/controllers/auth_controller.dart';
-import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
+import 'package:explorergocustomer/views/admin_home_screen/admin_home.dart';
 
+import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
 import 'package:explorergocustomer/views/auth_screen/forgot_password_reset_email.dart';
 import 'package:explorergocustomer/views/auth_screen/signup_screen.dart';
 import 'package:explorergocustomer/views/home_screen/home.dart';
@@ -12,10 +13,8 @@ import 'package:explorergocustomer/views/home_screen/home.dart';
 import 'package:explorergocustomer/widgets_common/custom_textfeild.dart';
 import 'package:explorergocustomer/widgets_common/custom_passwordfeild.dart';
 import 'package:explorergocustomer/widgets_common/my_button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 
-// import 'package:flutter/src/widgets/framework.dart';
-// import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class LoginScreen extends StatefulWidget {
   
@@ -31,20 +30,35 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
 
-  changeScreen(){
-    Future.delayed(const Duration(seconds: 2),(){
-      auth.authStateChanges().listen((User? user) {
-        if (user == null && mounted){
-          Get.offAll (()=>const LoginScreen());
-        } else if (user!.emailVerified){
-          Get.offAll(()=>const Home());
-        }
-         else {
-          Get.offAll(()=>const EmailVarificationScreen());
+void changeScreen() {
+  auth.authStateChanges().listen((User? user) {
+    if (user == null && mounted) {
+      Get.offAll(() => const LoginScreen());
+    } else if (user != null) {
+      user.reload().then((_) {
+        if (user.emailVerified) {
+          FirebaseFirestore.instance
+              .collection('users')
+              .doc(auth.currentUser!.uid)
+              .get()
+              .then((DocumentSnapshot documentSnapshot) {
+            if (documentSnapshot.exists) {
+              final userRole = documentSnapshot.get('role') as String;
+              if (userRole == 'admin') {
+                Get.offAll(() => const AdminHome());
+              } else if (userRole == 'user') {
+                Get.offAll(() => const Home());
+              }
+            }
+          });
+        } else {
+          Get.offAll(() => const EmailVarificationScreen());
         }
       });
-    });
-  }
+    }
+  });
+}
+
 
   bool? isCheck = false;
   var controller = Get.put(AuthController());
@@ -161,8 +175,16 @@ class _LoginScreenState extends State<LoginScreen> {
                 loginWith.text.semiBold.color(darkFontGrey).size(18).make()
               ],
             ).box.border(color: primary, width: 2).padding(const EdgeInsets.all(12)).roundedSM.make().onTap(() async {
-              await controller.signInWithGoogle().then((value){
-                return controller.storeGoogleUserData(name: auth.currentUser!.displayName.toString(), email: auth.currentUser!.email.toString(), imgUrl: auth.currentUser!.photoURL.toString());
+              await controller.signInWithGoogle().then((value) async {
+                // return controller.storeGoogleUserData(name: auth.currentUser!.displayName.toString(), email: auth.currentUser!.email.toString(), imgUrl: auth.currentUser!.photoURL.toString());
+                final userExists = await checkUserExists(auth.currentUser!.uid);
+                if (!userExists) {
+                    return controller.storeGoogleUserData(
+                      name: auth.currentUser!.displayName.toString(),
+                      email: auth.currentUser!.email.toString(),
+                      imgUrl: auth.currentUser!.photoURL.toString(),
+                    );
+                }
               });
             })
           ],
@@ -171,4 +193,9 @@ class _LoginScreenState extends State<LoginScreen> {
     ),
    );
   }
+}
+
+Future<bool> checkUserExists(String userId) async {
+  final snapshot = await firestore.collection(usersCollection).doc(userId).get();
+  return snapshot.exists;
 }

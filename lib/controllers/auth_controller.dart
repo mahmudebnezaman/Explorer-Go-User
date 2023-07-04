@@ -55,7 +55,8 @@ class AuthController extends GetxController {
       'imageUrl': '',
       'id': auth.currentUser!.uid,
       'emergency_contact': '',
-      'emergency_contact_name': ''
+      'emergency_contact_name': '',
+      'role': 'user'
     });
   }
 
@@ -105,11 +106,9 @@ class AuthController extends GetxController {
       'email': email,
       'imageUrl': imgUrl,
       'id': auth.currentUser!.uid,
-      // 'cart_count': '00',
-      'wishlist_count': '00',
-      'order_count': '00',
       'emergency_contact': '',
-      'emergency_contact_name': ''
+      'emergency_contact_name': '',
+      'role': 'user',
     });
   }
 }

@@ -13,8 +13,8 @@ class EmailVarificationScreen extends StatelessWidget {
 
     Future<bool> onWillPop() async {
       await controller.removeUser(auth.currentUser?.uid);
-      await auth.currentUser?.delete(); 
-      Get.to(()=> const LoginScreen());
+      await auth.currentUser?.delete();
+      Get.to(() => const LoginScreen());
       return true;
     }
 
@@ -43,7 +43,8 @@ class EmailVarificationScreen extends StatelessWidget {
                   Column(
                     children: [
                       const Icon(Icons.attach_email_outlined, size: 50, color: darkFontGrey),
-                      (wehavesentmail + auth.currentUser!.email! + pleasecheck).text.align(TextAlign.justify).make(),
+                      if (auth.currentUser?.email != null)
+                        (wehavesentmail + auth.currentUser!.email! + pleasecheck).text.align(TextAlign.justify).make(),
                       const SizedBox(height: 10),
                       ifnotautoredirect.text.align(TextAlign.justify).make(),
                       const SizedBox(height: 20),

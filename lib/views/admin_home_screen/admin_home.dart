@@ -1,42 +1,42 @@
 import 'package:explorergocustomer/consts/consts.dart';
 import 'package:explorergocustomer/controllers/home_controller.dart';
-import 'package:explorergocustomer/views/blog_screen/blog_screen.dart';
-import 'package:explorergocustomer/views/booking_screen/booking_screen.dart';
-import 'package:explorergocustomer/views/home_screen/home_screen.dart';
+import 'package:explorergocustomer/views/admin_blogs_screen/admin_blogs_screen.dart';
+import 'package:explorergocustomer/views/admin_booking_screen/admin_booking_screen.dart';
+import 'package:explorergocustomer/views/admin_events_screen/admin_events_screen.dart';
+import 'package:explorergocustomer/views/admin_home_screen/admin_home_screen.dart';
 import 'package:explorergocustomer/views/profile_screen/profile_screen.dart';
-import 'package:explorergocustomer/views/saved_screen/saved_screen.dart';
 
-class Home extends StatefulWidget {
+class AdminHome extends StatefulWidget {
 
 
-  const Home({super.key});
+  const AdminHome({super.key});
 
   @override
-  State<Home> createState() => _HomeState();
+  State<AdminHome> createState() => _AdminHomeState();
 }
 
-class _HomeState extends State<Home> {
+class _AdminHomeState extends State<AdminHome> {
   DateTime timeBackPressed =DateTime.now();
 
   @override
   Widget build(BuildContext context) {
 
-    // home controller
+     // home controller
     var controller = Get.put(HomeController());
 
     var navBarItem = [
       BottomNavigationBarItem(icon: Image.asset(icHome, width: 26), label: home),
       BottomNavigationBarItem(icon: Image.asset(icBlog, width: 26, color: bottomNavGrey,), label: blogs,),
-      BottomNavigationBarItem(icon: Image.asset(icHeart, width: 26,color: bottomNavGrey), label: saved),
+      BottomNavigationBarItem(icon: Image.asset(icTodaysDeal, width: 26,color: bottomNavGrey), label: 'Events'),
       BottomNavigationBarItem(icon: Image.asset(icSuitcase, width: 26, color: bottomNavGrey,), label: bookings),
       BottomNavigationBarItem(icon: Image.asset(icProfile, width: 26), label: profile),
     ];
 
     var navBody = [
-      const HomeScreen(),
-      const BlogScreen(),
-      const SavedScreen(),
-      const BookingScreen(),
+      const AdminHomeScreen(),
+      const AdminBlogScreen(),
+      const AdminEventScreen(),
+      const AdminBookingScreen(),
       const ProfileScreen(),
     ]; 
 
