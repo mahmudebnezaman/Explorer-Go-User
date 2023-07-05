@@ -1,4 +1,5 @@
 import 'package:explorergocustomer/consts/consts.dart';
+import 'package:explorergocustomer/views/admin_blogs_screen/tools/featured_blogs.dart';
 // import 'package:explorergocustomer/views/blogs_screen/tools/featured_blogs.dart';
 import 'package:explorergocustomer/views/admin_home_screen/components/admin_featured_button.dart';
 import 'package:explorergocustomer/views/admin_home_screen/components/admin_featured_events.dart';
@@ -43,7 +44,7 @@ class _AdminHomeScreenState extends State<AdminHomeScreen> {
               10.heightBox,
               "Featured Blogs".text.size(16).semiBold.color(darkFontGrey).make(),
               10.heightBox,
-              // getFeaturedBlogs(),
+              getFeaturedBlogs(),
               10.heightBox,
             ],
           ),

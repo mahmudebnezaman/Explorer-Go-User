@@ -175,6 +175,7 @@ void changeScreen() {
                 loginWith.text.semiBold.color(darkFontGrey).size(18).make()
               ],
             ).box.border(color: primary, width: 2).padding(const EdgeInsets.all(12)).roundedSM.make().onTap(() async {
+              controller.isloading(true);
               await controller.signInWithGoogle().then((value) async {
                 // return controller.storeGoogleUserData(name: auth.currentUser!.displayName.toString(), email: auth.currentUser!.email.toString(), imgUrl: auth.currentUser!.photoURL.toString());
                 final userExists = await checkUserExists(auth.currentUser!.uid);

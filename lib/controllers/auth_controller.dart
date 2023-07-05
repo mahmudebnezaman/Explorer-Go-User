@@ -94,6 +94,7 @@ class AuthController extends GetxController {
       idToken: googleAuth?.idToken,
     );
 
+    isloading(false);
     // Once signed in, return the UserCredential
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }

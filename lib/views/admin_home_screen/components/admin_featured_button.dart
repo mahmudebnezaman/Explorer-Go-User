@@ -34,7 +34,7 @@ Widget dashboard(){
         }
       ),
       StreamBuilder(
-        stream: FireStoreServices.getBookings("Upcoming"),
+        stream: FireStoreServices.adminGetBookings("Upcoming"),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot){
           if(!snapshot.hasData){
             return Center(
