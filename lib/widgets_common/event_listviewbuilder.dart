@@ -3,12 +3,10 @@ import 'package:explorergocustomer/consts/lists.dart';
 import 'package:explorergocustomer/controllers/product_controller.dart';
 import 'package:explorergocustomer/views/admin_events_screen/edit_event.dart';
 import 'package:explorergocustomer/views/admin_events_screen/event_details.dart';
-// import 'package:explorergocustomer/views/events_screen/edit_event.dart';
-// import 'package:explorergocustomer/views/events_screen/event_details.dart';
 
 Widget eventListViewBuilder({data}){
   
-    var productController = Get.put(ProductController());
+  var productController = Get.put(ProductController());
   return ListView.builder(
     shrinkWrap: true,
     physics: const BouncingScrollPhysics(),
@@ -133,7 +131,6 @@ Widget eventListViewBuilder({data}){
                         );
                       },
                     );
-                    
                   }
                   break;
                 case 1:

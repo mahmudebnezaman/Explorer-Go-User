@@ -6,6 +6,9 @@ class FireStoreServices{
     return firestore.collection(usersCollection).where('id',isEqualTo: uid).snapshots();
   }
 
+  static getAllUser(){
+    return firestore.collection(usersCollection).orderBy('role').snapshots();
+  }
 
 //get products according to category
   static getEvents(category){

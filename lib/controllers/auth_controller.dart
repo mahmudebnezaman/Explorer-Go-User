@@ -59,6 +59,20 @@ class AuthController extends GetxController {
       'role': 'user'
     });
   }
+  editRoleAsAdmin(docId) async {
+    DocumentReference store =
+        firestore.collection(usersCollection).doc(docId);
+    store.set({
+      'role': 'admin'
+    }, SetOptions(merge: true));
+  }
+  editRoleAsUser(docId) async {
+    DocumentReference store =
+        firestore.collection(usersCollection).doc(docId);
+    store.set({
+      'role': 'user'
+    }, SetOptions(merge: true));
+  }
 
   //Email varification
   Future<void> sendEmailVarification(context) async{
