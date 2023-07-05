@@ -1,4 +1,5 @@
 import 'package:explorergocustomer/views/splash_screen/splash_screen.dart';
+import 'package:explorergocustomer/widgets_common/dependency_injection.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 import 'consts/consts.dart';
@@ -6,6 +7,7 @@ import 'consts/consts.dart';
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  DependencyInjection.init();
   runApp(const MyApp());
 }
 

@@ -64,6 +64,10 @@ void changeScreen() {
             300.heightBox,
             Image.asset(icAppLogo).box.size(220, 220).make(),
             const Spacer(),
+            const CircularProgressIndicator(
+              color: whiteColor,
+            ),
+            10.heightBox,
             credits.text.fontFamily(semibold).white.make(),
             30.heightBox,
           ],
