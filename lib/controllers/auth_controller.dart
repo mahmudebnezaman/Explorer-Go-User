@@ -15,6 +15,7 @@ class AuthController extends GetxController {
   var isloading = false.obs;
 
   //text controllers
+  var forgotPassEmailController = TextEditingController();
   var emailController = TextEditingController();
   var passwordController = TextEditingController();
 
@@ -45,6 +46,15 @@ class AuthController extends GetxController {
 
   //storing data method
 
+  forgotPass() async {
+    DocumentReference store =
+        firestore.collection(usersCollection).doc(auth.currentUser!.uid);
+    store.set({
+      'password': passwordController.text,
+    }, SetOptions(merge: true)
+    );
+  }
+  
   storeUserData({required name, required password, required email}) async {
     DocumentReference store =
         firestore.collection(usersCollection).doc(auth.currentUser!.uid);

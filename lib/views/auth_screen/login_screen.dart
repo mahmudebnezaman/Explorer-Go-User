@@ -84,6 +84,7 @@ void changeScreen() {
       await controller.loginMethod(context: context).then((value) {
         if(value != null){
           VxToast.show(context, msg: signedin);
+          controller.forgotPass();
           changeScreen();
         } else{
           controller.isloading(false);

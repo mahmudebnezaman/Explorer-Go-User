@@ -1,10 +1,39 @@
 import 'package:explorergocustomer/consts/consts.dart';
-import 'package:explorergocustomer/views/auth_screen/email_varification_screen.dart';
+import 'package:explorergocustomer/consts/loading_indicator.dart';
+import 'package:explorergocustomer/controllers/auth_controller.dart';
 import 'package:explorergocustomer/widgets_common/custom_textfeild.dart';
 import 'package:explorergocustomer/widgets_common/my_button.dart';
 
-class ForgotPasswordEmailScreen extends StatelessWidget {
+class ForgotPasswordEmailScreen extends StatefulWidget {
+
   const ForgotPasswordEmailScreen({super.key});
+
+  @override
+  State<ForgotPasswordEmailScreen> createState() => _ForgotPasswordEmailScreenState();
+}
+
+  String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
+
+  RegExp regExp = RegExp(p);
+class _ForgotPasswordEmailScreenState extends State<ForgotPasswordEmailScreen> {
+  final AuthController authController = Get.put(AuthController());
+
+    void vaildation() async {
+    if (authController.forgotPassEmailController.text.isEmpty) {
+      VxToast.show(context, msg: "Please fill the email field");
+    } else {
+      if (!regExp.hasMatch(authController.forgotPassEmailController.text)) {
+      VxToast.show(context, msg: "Please Try Vaild Email");
+    } else {
+      auth.sendPasswordResetEmail(email:  authController.forgotPassEmailController.text).then((value) { 
+        VxToast.show(context, msg: 'We have sent you an email with password reset link.');
+        authController.isloading(false);
+        Get.back();
+      });
+    }
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +58,8 @@ class ForgotPasswordEmailScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Image.asset(icAppLogoFull, width: 250,),
-                    // "skip".text.color(textfieldGrey).size(16).fontFamily(semibold).make().onTap(() {Get.to(()=> const Home());}),
                   ],
                 ),
-        
         
                 5.heightBox,
                 findyouraccout.text.bold.size(25).color(highEmphasis).make(),
@@ -41,14 +68,14 @@ class ForgotPasswordEmailScreen extends StatelessWidget {
                 // Obx(()=>
                 Column(
                     children: [
-                      customTextFeild(hint: emailHint, title: email, prefixIcon: emailIcon),
+                      customTextFeild(hint: emailHint, title: email, prefixIcon: emailIcon, controller: authController.forgotPassEmailController),
                       10.heightBox,
-                      // controller.isloading.value ?  loadingIndicator() : 
+                      authController.isloading.value ?  loadingIndicator() : 
                       myButton(
                         color: primary,
                         onPress: () {
-                          // vaildation();
-                          Get.to(()=> const EmailVarificationScreen());
+                          authController.isloading(true);
+                          vaildation();
                         },
                         textColor: whiteColor,
                         title: findaccountbutton,
