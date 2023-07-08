@@ -187,6 +187,8 @@ void changeScreen() {
                       imgUrl: auth.currentUser!.photoURL.toString(),
                     );
                 }
+                changeScreen();
+                controller.isloading(false);
               });
             })
           ],
