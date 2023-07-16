@@ -68,7 +68,7 @@ class _BookingDetailsState extends State<BookingDetails> {
                         Expanded(child: '${widget.data['location']}'.text.color(fontGrey).fontFamily(regular).size(18).make()),
                         ],
                       ),
-                    Expanded(child: 'Order ID: ${widget.data.id}'.text.fontFamily(regular).size(18).color(fontGrey).make()),
+                    Expanded(child: 'Booking ID: ${widget.data.id}'.text.fontFamily(regular).size(18).color(fontGrey).make()),
                   ],
                 ).box.white.roundedSM.padding(const EdgeInsets.all(12)).margin(const EdgeInsets.symmetric(horizontal: 4)).outerShadow.make(),
               ),
