@@ -45,7 +45,8 @@ class AddEvent extends StatelessWidget {
                 const DropdownButtonCategory(),
                 for(int i=0; i<eventTitleList.length; i++)
                   detailsTextField(title: eventTitleList[i], hint: 'Details', controller: detailTextFeildControllers[i]),
-                5.heightBox,
+                customTextFeild(title: "Available Seats", hint: "ex: 20", controller: controller.seatsController, keytype: TextInputType.number),
+               5.heightBox,
                 controller.isloading.value ? Center(child: loadingIndicator()) : myButton(
                   title: "Confirm post",
                   buttonSize: 20.0,

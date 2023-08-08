@@ -49,7 +49,8 @@ class _AllUsersScreenState extends State<AllUsersScreen> {
               itemCount: data.length,
               itemBuilder: (context, index){
                 return ListTile(
-                    leading: Image.asset(icUser, color: highEmphasis, height: 30,),
+                    leading: data[index]['imageUrl'] == '' ? Image.asset(icUser,fit: BoxFit.cover,height: 50,width: 50, color: fontGrey,).box.clip(Clip.antiAlias).roundedFull.border(color: whiteColor, width: 2).white.shadow3xl.make() 
+                          : Image.network(data[index]['imageUrl'],fit: BoxFit.cover,height: 50,width: 50).box.clip(Clip.antiAlias).roundedFull.white.shadow3xl.make(),
                     title: '${data[index]['name']}'.text.size(18).color(highEmphasis).make(),
                     subtitle: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

@@ -149,6 +149,7 @@ Widget eventListViewBuilder({data}){
                   productController.travelTipsController.text = data[index]['Travel Tips'].toString();
                   productController.optionsController.text = data[index]['Options'].toString();
                   productController.policyController.text = data[index]['Policy'].toString();
+                  productController.seatsController.text = data[index]['available_seats'].toString();
                   Get.to(()=> EditEventScreen(data: data[index]));
                   break;
                 case 2:

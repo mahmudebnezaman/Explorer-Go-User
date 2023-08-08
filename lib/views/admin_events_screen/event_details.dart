@@ -148,6 +148,7 @@ class _AdminEventDetailsState extends State<AdminEventDetails> {
               controller.travelTipsController.text = widget.data['Travel Tips'].toString();
               controller.optionsController.text = widget.data['Options'].toString();
               controller.policyController.text = widget.data['Policy'].toString();
+              controller.seatsController.text = widget.data['available_seats'].toString();
               Get.off(()=> EditEventScreen(data: widget.data,));
             },
             backgroundColor: primary,

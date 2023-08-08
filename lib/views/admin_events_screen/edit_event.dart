@@ -55,6 +55,7 @@ class _EditEventScreenState extends State<EditEventScreen> {
                   5.heightBox,
                   for(int i=0; i<eventTitleList.length; i++)
                   detailsTextField(title: eventTitleList[i], hint: 'Details', controller: detailTextFeildControllers[i]),
+                  customTextFeild(title: "Available Seats", hint: "ex: 20", controller: controller.seatsController, keytype: TextInputType.number),
                   5.heightBox,
                   controller.isloading.value ? Center(child: loadingIndicator()) : myButton(
                     title: "Update Event",

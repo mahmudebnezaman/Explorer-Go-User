@@ -26,6 +26,7 @@ class ProductController extends GetxController {
   var priceController = TextEditingController();
   var locationController = TextEditingController();
   var overviewController = TextEditingController();
+  var seatsController = TextEditingController();
   var pickupNoteController = TextEditingController();
   var timingController = TextEditingController();
   var itineraryController = TextEditingController();
@@ -193,7 +194,8 @@ class ProductController extends GetxController {
       'Additional Information': aditioninfoController.text,
       'Travel Tips': travelTipsController.text,
       'Options': optionsController.text,
-      'Policy': policyController.text
+      'Policy': policyController.text,
+      'available_seats': seatsController.text
     });
     VxToast.show(context, msg: "New Event Added");
     isloading(false);
@@ -219,9 +221,10 @@ class ProductController extends GetxController {
       'Additional Information': aditioninfoController.text,
       'Travel Tips': travelTipsController.text,
       'Options': optionsController.text,
-      'Policy': policyController.text
-    });
-    // , SetOptions(merge: true));
+      'Policy': policyController.text,
+      'available_seats': seatsController.text
+    }
+    , SetOptions(merge: true));
     VxToast.show(context, msg: "Event Updated");
     isloading(false);
   }

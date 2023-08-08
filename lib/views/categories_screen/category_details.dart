@@ -42,7 +42,7 @@ class _CategoryDetailsState extends State<CategoryDetails> {
         ),
         body: Padding(
           padding: const EdgeInsets.all(12),
-          child: Column(
+          child: ListView(
             children: [
               SingleChildScrollView(
                 physics: const BouncingScrollPhysics(),
