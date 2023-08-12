@@ -19,7 +19,6 @@ class SignUp extends StatefulWidget {
   String p = r'^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$';
 
   RegExp regExp = RegExp(p);
-
 class _SignUpState extends State<SignUp> {
 
   
@@ -37,6 +36,24 @@ class _SignUpState extends State<SignUp> {
   var passwordController = TextEditingController();
   var retypePasswordController = TextEditingController();
 
+  bool isPasswordStrong(String password) {
+  // Check for at least one uppercase letter
+  bool hasUppercase = RegExp(r'[A-Z]').hasMatch(password);
+  
+  // Check for at least one lowercase letter
+  bool hasLowercase = RegExp(r'[a-z]').hasMatch(password);
+  
+  // Check for at least one digit
+  bool hasDigit = RegExp(r'\d').hasMatch(password);
+  
+  // Check for at least one special character
+  bool hasSpecialChar = RegExp(r'[!@#$%^&*(),.?":{}|<>]').hasMatch(password);
+
+  // Check if all requirements are met
+  return hasUppercase && hasLowercase && hasDigit && hasSpecialChar;
+}
+
+
   void vaildation() async {
     if (nameController.text.isEmpty && emailController.text.isEmpty && passwordController.text.isEmpty && retypePasswordController.text.isEmpty) {
       VxToast.show(context, msg: "Please fill the signup form");
@@ -51,7 +68,10 @@ class _SignUpState extends State<SignUp> {
       VxToast.show(context, msg: "Minimum password length is 8");
     } else if (passwordController.text != retypePasswordController.text) {
       VxToast.show(context, msg: "Password not matched");
-    } else {
+    } else if (!isPasswordStrong(passwordController.text)){
+      VxToast.show(context, msg: "Password must include uppercase, lowercase, number, and special character.", position: VxToastPosition.bottom);
+    }
+    else {
       signUpButtonPress();
     }
     }
@@ -216,6 +236,7 @@ class _SignUpState extends State<SignUp> {
                         title: signup,
                         textColor: isCheck == true ? whiteColor : fontGrey,
                         onPress: (){
+                          FocusScope.of(context).unfocus();
                           vaildation();
                         },
                         buttonSize: 20.0,
