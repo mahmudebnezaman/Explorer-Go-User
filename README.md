@@ -2,6 +2,14 @@
 
 A shared based trip booking application.
 
+# UI Designs:
+![1](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/6891557b-41af-4357-b8ac-0f99f97c5196)
+![2](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/ad4bc7b7-c103-4bb6-b082-b890c2879c5e)
+![3](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/f9dc59cb-32a1-48e1-94b6-a77968734993)
+![4](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/91df7c84-b267-445f-8077-faa007968146)
+![5](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/5ee83e87-2d73-4811-b0d5-8a391fed8abe)
+![6](https://github.com/mahmudebnezaman/Explorer-Go-User/assets/89069368/af18a9f0-9cde-4110-add8-2f98b952f6c2)
+
 ## Getting Started
 
 A few resources to get you started if this is your first Flutter project:
